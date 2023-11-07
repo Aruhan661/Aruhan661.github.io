@@ -155,6 +155,162 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://aruhan661.github.io/program/classic_puzzle/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-2023-11-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.jpg">
+      <meta itemprop="name" content="Aruhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aruhan's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/program/classic_puzzle/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-2023-11-07/" class="post-title-link" itemprop="url">八皇后问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-07 18:19:09 / Modified: 21:06:18" itemprop="dateCreated datePublished" datetime="2023-11-07T18:19:09+08:00">2023-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/" itemprop="url" rel="index"><span itemprop="name">Program</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/Classic-Puzzle/" itemprop="url" rel="index"><span itemprop="name">Classic Puzzle</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h2><p>八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的n皇后摆放问题：这时棋盘的大小变为n×n，而皇后个数也变成n。当且仅当n &#x3D; 1或n ≥ 4时问题有解。</p>
+<p>八皇后问题最早是由国际象棋棋手Max Bezzel于1848年提出。第一个解在1850年由Franz Nauck给出。</p>
+<h4 id="递归实现回溯法解决N皇后问题-C"><a href="#递归实现回溯法解决N皇后问题-C" class="headerlink" title="递归实现回溯法解决N皇后问题  C++"></a>递归实现回溯法解决N皇后问题  C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">8</span>;</span><br><span class="line"><span class="type">bool</span> board[N][N] = &#123; <span class="literal">false</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isSafe</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printBoard</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NQueensPuzzle</span><span class="params">(<span class="type">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将皇后放在(row,col)上是否安全</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isSafe</span><span class="params">(<span class="type">int</span> row, <span class="type">int</span> col)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; row; i++)</span><br><span class="line">		<span class="keyword">if</span> (board[i][col]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = row, j = col; i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>; i--, j--)</span><br><span class="line">		<span class="keyword">if</span> (board[i][j]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = row, j = col; i &gt;= <span class="number">0</span> &amp;&amp; j &lt; N; i--, j++)</span><br><span class="line">		<span class="keyword">if</span> (board[i][j]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归解决八皇后问题</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NQueensPuzzle</span><span class="params">(<span class="type">int</span> row)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (row == N) &#123;</span><br><span class="line">		<span class="built_in">printBoard</span>();</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">0</span>; col &lt; N; col++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">isSafe</span>(row, col)) &#123;</span><br><span class="line">			board[row][col] = <span class="literal">true</span>;		<span class="comment">// 放置皇后</span></span><br><span class="line">			<span class="built_in">NQueensPuzzle</span>(row + <span class="number">1</span>);		<span class="comment">// 递归到下一行</span></span><br><span class="line">			board[row][col] = <span class="literal">false</span>;	<span class="comment">// 回溯，移除皇后</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印棋盘</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printBoard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; N; j++)</span><br><span class="line">			<span class="keyword">if</span> (board[i][j]) cout &lt;&lt; <span class="string">&quot;Q &quot;</span>;</span><br><span class="line">			<span class="keyword">else</span> cout &lt;&lt; <span class="string">&quot;. &quot;</span>;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">NQueensPuzzle</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://aruhan661.github.io/program/classic_puzzle/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98-2023-11-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.jpg">
+      <meta itemprop="name" content="Aruhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aruhan's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/program/classic_puzzle/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98-2023-11-07/" class="post-title-link" itemprop="url">汉诺塔问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-07 18:19:09 / Modified: 21:04:08" itemprop="dateCreated datePublished" datetime="2023-11-07T18:19:09+08:00">2023-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/" itemprop="url" rel="index"><span itemprop="name">Program</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/Classic-Puzzle/" itemprop="url" rel="index"><span itemprop="name">Classic Puzzle</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="汉诺塔"><a href="#汉诺塔" class="headerlink" title="汉诺塔"></a>汉诺塔</h2><p>有三根杆子A，B，C。A杆上有 N 个 (N&gt;1) 穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至 C 杆：</p>
+<ol>
+<li>每次只能移动一个圆盘；</li>
+<li>大盘不能叠在小盘上面。</li>
+</ol>
+<p>提示：可将圆盘临时置于 B 杆，也可将从 A 杆移出的圆盘重新移回 A 杆，但都必须遵循上述两条规则。</p>
+<p>问：如何移？最少要移动多少次？</p>
+<h4 id="递归解决汉诺塔问题-C"><a href="#递归解决汉诺塔问题-C" class="headerlink" title="递归解决汉诺塔问题  C++"></a>递归解决汉诺塔问题  C++</h4><p>假设有 A、B、C 三个塔，A 塔有N块盘，目标是把这些盘全部移到 C 塔。那么先把 A 塔顶部的N-1块盘移动到 B 塔，再把 A 塔剩下的大盘移到 C，最后把 B 塔的 N-1 块盘移到 C。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> NumDisk = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">towerHanoiPuzzle</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> a, <span class="type">char</span> b, <span class="type">char</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 如果 n=1 ，表示只有一个盘子，直接将这个盘子从柱子a移动到柱子c</span></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;disk&quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; : &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;    <span class="comment">// 如果 n&gt;1，</span></span><br><span class="line">        <span class="comment">//将n-1个盘子从a柱移动到b柱，c柱为中间柱</span></span><br><span class="line">        <span class="built_in">towerHanoiPuzzle</span>(n - <span class="number">1</span>, a, c, b);</span><br><span class="line">        <span class="comment">//将柱子a剩下的最大的盘子移动到柱子c，</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;disk&quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; : &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">        <span class="comment">//将柱子b的n-1个盘子移动到柱子c，a柱为中间柱</span></span><br><span class="line">        <span class="built_in">towerHanoiPuzzle</span>(n - <span class="number">1</span>, b, a, c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">towerHanoiPuzzle</span>(NumDisk, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://aruhan661.github.io/mongol/bi_mongol_khun-2023-11-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -208,6 +364,127 @@
 <img src="/images/bi_mongol_khun_3.jpg" class="">
 <img src="/images/bi_mongol_khun_4.jpg" class="">
 
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://aruhan661.github.io/machine_learning/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90-2023-11-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.jpg">
+      <meta itemprop="name" content="Aruhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aruhan's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/machine_learning/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90-2023-11-01/" class="post-title-link" itemprop="url">主成分分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-01 20:58:43" itemprop="dateCreated datePublished" datetime="2023-11-01T20:58:43+08:00">2023-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-07 21:01:48" itemprop="dateModified" datetime="2023-11-07T21:01:48+08:00">2023-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="主成分分析法-PCA"><a href="#主成分分析法-PCA" class="headerlink" title="主成分分析法 PCA"></a>主成分分析法 PCA</h2><p>在机器学习和数据分析问题中，通常需要处理大规模多变量的数据集。这些数据集中的众多变量可能相互关联，同时可能包含冗余信息和无用的噪声。这可能会导致以下问题：</p>
+<ol>
+<li>样本不足： 在高维度数据中，可能需要更多的样本才能对模型进行有效的训练。</li>
+<li>计算复杂性的增加： 处理高维数据需要更多的计算资源。</li>
+<li>过拟合风险： 多变量数据中的冗余信息和噪声可能使模型更容易过拟合。</li>
+<li>解释性困难： 在高维度数据中，理解和解释模型的结果变得更加困难。</li>
+</ol>
+<p>为了解决这一问题，数据降维成为一种关键技术。</p>
+<p><strong>数据降维</strong>是一种在机器学习和数据分析领域常用的技术，旨在减少数据集的维度，同时尽可能保留数据中重要的信息。数据降维的主要目的是降低计算复杂性、减少噪声和冗余，以便更有效地处理数据并提高模型性能。</p>
+<p><strong>主成分分析法</strong>就是一个常用的数据降维的方法。</p>
+<h4 id="主成分分析的基本思想"><a href="#主成分分析的基本思想" class="headerlink" title="主成分分析的基本思想"></a>主成分分析的基本思想</h4><p>主成分分析 Principal components analysis（PCA）的核心思想是将原始 $n$ 维特征映射到新的 $k$ 维空间上，其中这 $k$ 维是正交的、全新的特征，也称为<strong>主成分</strong>。这个映射过程的目标是重新构造数据的特征空间，以更好地表示原始数据的重要信息。PCA的工作过程如下：</p>
+<ol>
+<li><p>均值中心化： 首先，将数据的坐标轴中心移到数据的平均值中心，以使数据的中心为原点。这有助于处理数据的尺度问题，确保数据的均值为零。</p>
+</li>
+<li><p>选择主成分： PCA的核心是找到新的坐标轴，这些坐标轴是原始特征的线性组合，并且它们是正交的（彼此之间垂直）。</p>
+<ol>
+<li><p>将坐标轴中心移到数据的中心，然后旋转坐标轴，使得数据在 $C_1$ 轴上的方差最大，即全部 $n$ 个数据个体在该方向上的投影最为分散。意味着更多的信息被保留下来。$C_1$ 成为第一主成分。</p>
+</li>
+<li><p>$C_2$第二主成分：找一个$C_2$，使得$C_2$与$C_1$的协方差（相关系数）为 $0$，以免与$C_1$信息重叠，并且使数据在该方向的方差尽量最大。</p>
+</li>
+<li><p>以此类推，找到第三主成分，第四主成分……第 $p$ 个主成分。 $p$ 个随机变量可以有 $p$ 个主成分</p>
+</li>
+</ol>
+</li>
+<li><p>投影数据： 在新的坐标轴上投影原始数据。这意味着将数据点映射到主成分上，得到新的数据集，其中每个数据点都由主成分构成。</p>
+</li>
+<li><p>降维： 通常，只保留前 $k$ 个主成分。这意味着只保留包含最大方差的主成分，忽略包含几乎没有方差的主成分。这实现了数据降维，减少了特征的维度。</p>
+</li>
+</ol>
+<p>通过这个过程，PCA有助于减少数据维度，同时保留尽可能多的信息，因为主成分包含了原始数据中的主要变化方向。这使得数据更易于处理、可视化和解释。</p>
+<p><strong>可以通过协方差矩阵的性质来求得数据集中的主成分</strong></p>
+<h4 id="PCA中的协方差矩阵"><a href="#PCA中的协方差矩阵" class="headerlink" title="PCA中的协方差矩阵"></a>PCA中的协方差矩阵</h4><p><strong>协方差：</strong> 用于衡量两个随机变量间的相关程度</p>
+<p><strong>协方差矩阵：</strong> 协方差矩阵描述了特征之间的线性关系。对于一个包含 $n$ 个特征的数据集，协方差矩阵的元素表示 $c[i][j]$ 特征 $i$ 和特征 $j$ 之间的协方差。</p>
+<p><strong>协方差矩阵的特征值：</strong> 协方差矩阵的特征值是一个数值，它表示了数据在相应特征向量方向上的方差，即数据集在这个方向上的变化程度。特征值的大小决定了主成分的重要性，即它们表示了数据中的主要方向。</p>
+<ul>
+<li>较大的特征值对应的主成分包含了数据中更多的方差，因此对数据的解释能力更强。</li>
+<li>较小的特征值对应的主成分包含了数据中较少的方差，因此对数据的解释能力较弱。</li>
+<li>特征值为零表示主成分没有方差，也就是说在该方向上没有数据的变化。</li>
+</ul>
+<p>特征值通常按降序排列，最大的特征值对应第一个主成分，第二大的特征值对应第二个主成分，依此类推。</p>
+<p><strong>协方差矩阵的特征向量：</strong> 协方差矩阵的特征向量是单位向量，它们描述了数据集中主成分的方向。</p>
+<h4 id="主成分分析算法"><a href="#主成分分析算法" class="headerlink" title="主成分分析算法"></a>主成分分析算法</h4><ol>
+<li>对原始数据进行均值中心化，即将每个特征的均值减去数据集中的均值。</li>
+<li>计算协方差矩阵。</li>
+<li>对协方差矩阵进行特征值分解，得到特征值和对应的特征向量。</li>
+<li>特征值降序排序，选择前 $k$ 个主成分作为新的特征向量。</li>
+<li>在新的坐标系中，将原始数据点投影到主成分上，得到新的数据集。</li>
+</ol>
 
       
     </div>
@@ -441,19 +718,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
